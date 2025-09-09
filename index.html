@@ -414,6 +414,22 @@
       }, 500);
     }
 
+    // Toggle summary visibility
+    function toggleSummary(index) {
+      const summaryDiv = document.getElementById(`summary-${index}`);
+      const button = event.target;
+      
+      if (summaryDiv.classList.contains('show')) {
+        summaryDiv.classList.remove('show');
+        button.textContent = 'Read Summary';
+        button.innerHTML = 'Read Summary<span style="margin-left: 8px;">📄</span>';
+      } else {
+        summaryDiv.classList.add('show');
+        button.textContent = 'Hide Summary';
+        button.innerHTML = 'Hide Summary<span style="margin-left: 8px;">📄</span>';
+      }
+    }
+
     // Add keyboard support
     document.addEventListener('keydown', function(event) {
       if (event.key === 'Enter') {
