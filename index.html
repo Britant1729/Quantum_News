@@ -232,6 +232,38 @@
       transform: translateX(3px);
     }
 
+    .summary-btn {
+      display: inline-flex;
+      align-items: center;
+      color: #667eea;
+      background: none;
+      border: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .summary-btn:hover {
+      color: #764ba2;
+      transform: translateX(5px);
+    }
+
+    .summary-content {
+      display: none;
+      margin-top: 15px;
+      color: #2c3e50;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .summary-content.show {
+      display: block;
+    }
+
     .no-news {
       text-align: center;
       padding: 60px 20px;
@@ -342,20 +374,20 @@
     const newsData = {
       "june2025": {
         "us": [
-          { title: "IBM launches 'Starling' roadmap for fault-tolerant quantum supercomputer", link: "https://newsroom.ibm.com/" },
-          { title: "Rice University: Graphene as a quantum insulator", link: "https://www.eurekalert.org/news-releases/1087893" },
-          { title: "New quantum super-material at Rice University", link: "https://scitechdaily.com/physicists-unveil-new-quantum-super-material-that-could-revolutionize-electronics/" },
-          { title: "Chalmers, Aalto & Helsinki discover exotic quantum material", link: "https://www.azoquantum.com/News.aspx?newsID=10826" },
-          { title: "Toshiba Cambridge quantum light sources project", link: "https://www.sciencedaily.com/releases/2025/06/250612031413.htm" },
-          { title: "University College Cork: Next-gen materials tool", link: "https://thequantuminsider.com" },
-          { title: "UBC chip-based universal quantum translator", link: "https://www.sciencedaily.com/releases/2025/06/250620031230.htm" },
-          { title: "Orange Business & Toshiba launch quantum-safe network service", link: "https://www.businesswire.com/news/homeOrange-Business-and-Toshiba" },
-          { title: "Germany proposes national QTF-Backbone for time-frequency transfer", link: "https://arxiv.org/pdf/2506.03998" }
+          { title: "IBM launches 'Starling' roadmap for fault-tolerant quantum supercomputer", link: "https://newsroom.ibm.com/", summary: "IBM introduces a roadmap for developing a fault-tolerant quantum supercomputer named 'Starling,' aiming to achieve significant milestones in quantum computing reliability." },
+          { title: "Rice University: Graphene as a quantum insulator", link: "https://www.eurekalert.org/news-releases/1087893", summary: "Researchers at Rice University demonstrate graphene's potential as a quantum insulator, opening new pathways for quantum device development." },
+          { title: "New quantum super-material at Rice University", link: "https://scitechdaily.com/physicists-unveil-new-quantum-super-material-that-could-revolutionize-electronics/", summary: "Rice University unveils a novel quantum super-material with potential to transform electronics through enhanced quantum properties." },
+          { title: "Chalmers, Aalto & Helsinki discover exotic quantum material", link: "https://www.azoquantum.com/News.aspx?newsID=10826", summary: "A collaboration between Chalmers, Aalto, and Helsinki universities uncovers an exotic quantum material with unique properties for quantum technologies." },
+          { title: "Toshiba Cambridge quantum light sources project", link: "https://www.sciencedaily.com/releases/2025/06/250612031413.htm", summary: "Toshiba Cambridge advances quantum light source technology, enabling new applications in quantum communication and computing." },
+          { title: "University College Cork: Next-gen materials tool", link: "https://thequantuminsider.com", summary: "University College Cork develops a next-generation tool for quantum material analysis, enhancing research capabilities." },
+          { title: "UBC chip-based universal quantum translator", link: "https://www.sciencedaily.com/releases/2025/06/250620031230.htm", summary: "UBC researchers create a chip-based universal quantum translator, facilitating interoperability in quantum systems." },
+          { title: "Orange Business & Toshiba launch quantum-safe network service", link: "https://www.businesswire.com/news/homeOrange-Business-and-Toshiba", summary: "Orange Business and Toshiba introduce a quantum-safe network service to protect data against future quantum computing threats." },
+          { title: "Germany proposes national QTF-Backbone for time-frequency transfer", link: "https://arxiv.org/pdf/2506.03998", summary: "Germany proposes a national QTF-Backbone to enhance time-frequency transfer using quantum technologies for precision applications." }
         ]
       },
       "july2025": {
         "us": [
-          { title: "China–U.S. researchers: Entanglement accelerates simulations", link: "https://www.nature.com/articles/s41567-025-02945-2" }
+          { title: "China–U.S. researchers: Entanglement accelerates simulations", link: "https://www.nature.com/articles/s41567-025-02945-2", summary: "China–U.S. research collaboration demonstrates that quantum entanglement can significantly speed up computational simulations." }
         ]
       }
     };
@@ -398,6 +430,8 @@
               <div class="news-number">${index + 1}</div>
               <h3>${item.title}</h3>
               <a href="${item.link}" target="_blank" class="news-link" rel="noopener noreferrer">Read Article</a>
+              <button class="summary-btn" onclick="toggleSummary(${index})">Read Summary<span style="margin-left: 8px;">📄</span></button>
+              <div id="summary-${index}" class="summary-content">${item.summary || "Summary not available."}</div>
             `;
             gridDiv.appendChild(cardDiv);
           });
@@ -421,11 +455,9 @@
       
       if (summaryDiv.classList.contains('show')) {
         summaryDiv.classList.remove('show');
-        button.textContent = 'Read Summary';
         button.innerHTML = 'Read Summary<span style="margin-left: 8px;">📄</span>';
       } else {
         summaryDiv.classList.add('show');
-        button.textContent = 'Hide Summary';
         button.innerHTML = 'Hide Summary<span style="margin-left: 8px;">📄</span>';
       }
     }
