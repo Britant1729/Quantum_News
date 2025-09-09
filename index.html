@@ -61,10 +61,10 @@
       newsListDiv.innerHTML = "";
 
       if (month && category && newsData[month] && newsData[month][category]) {
-        newsData[month][category].forEach(item => {
+        newsData[month][category].forEach((item, index) => {
           const div = document.createElement("div");
           div.className = "news-item";
-          div.innerHTML = `<a href="${item.link}" target="_blank">${item.title}</a>`;
+          div.innerHTML = `${index + 1}. <a href="${item.link}" target="_blank">${item.title}</a>`;
           newsListDiv.appendChild(div);
         });
       } else {
